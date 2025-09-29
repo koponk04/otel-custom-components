@@ -1,33 +1,8 @@
 dist:
+  module: github.com/open-telemetry/opentelemetry-collector-contrib
   name: otelcol-custom
-  description: Custom OpenTelemetry Collector with HTTP processor
-  output_path: ./dist
-  otelcol_version: 0.111.0
-
-exporters:
-  - gomod: go.opentelemetry.io/collector/exporter/debugexporter v0.111.0
-  - gomod: go.opentelemetry.io/collector/exporter/otlpexporter v0.111.0
-  - gomod: go.opentelemetry.io/collector/exporter/otlphttpexporter v0.111.0
+  description: Custom Collector with ALL contrib components + httpprocessor
+  version: 0.1.0
 
 processors:
-  # Your custom processor
-  - gomod: github.com/koponk04/otel-custom-components/processor/httpprocessor latest
-  
-  # Processors from collector-contrib
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor v0.111.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/batchprocessor v0.111.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/datadogsemanticsprocessor v0.111.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/filterprocessor v0.111.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor v0.111.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor v0.111.0
-
-receivers:
-  - gomod: go.opentelemetry.io/collector/receiver/otlpreceiver v0.111.0
-  - gomod: github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver v0.111.0
-
-extensions:
-  - gomod: go.opentelemetry.io/collector/extension/ballastextension v0.111.0
-  - gomod: go.opentelemetry.io/collector/extension/zpagesextension v0.111.0
-
-connectors:
-  - gomod: go.opentelemetry.io/collector/connector/forwardconnector v0.111.0
+  - gomod: github.com/koponk04/otel-custom-components v0.1.0
