@@ -6,3 +6,5 @@ dist:
 
 processors:
   - gomod: github.com/koponk04/otel-custom-components v0.1.0
+    import: github.com/koponk04/otel-custom-components/processor/httpprocessor
+    path: ./

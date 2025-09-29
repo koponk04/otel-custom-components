@@ -6,7 +6,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processorhelper"
 )
 
 const (
@@ -42,16 +41,10 @@ func createTracesProcessor(
 	proc := &httpProcessor{
 		config: processorCfg,
 		logger: set.Logger,
+		next:   nextConsumer,
 	}
 
-	return processorhelper.NewTracesProcessor(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		proc.processTraces,
-		processorhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-	)
+	return proc, nil
 }
 
 func createMetricsProcessor(
@@ -61,19 +54,13 @@ func createMetricsProcessor(
 	nextConsumer consumer.Metrics,
 ) (processor.Metrics, error) {
 	processorCfg := cfg.(*Config)
-	proc := &httpProcessor{
+	proc := &httpMetricsProcessor{
 		config: processorCfg,
 		logger: set.Logger,
+		next:   nextConsumer,
 	}
 
-	return processorhelper.NewMetricsProcessor(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		proc.processMetrics,
-		processorhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-	)
+	return proc, nil
 }
 
 func createLogsProcessor(
@@ -83,17 +70,11 @@ func createLogsProcessor(
 	nextConsumer consumer.Logs,
 ) (processor.Logs, error) {
 	processorCfg := cfg.(*Config)
-	proc := &httpProcessor{
+	proc := &httpLogsProcessor{
 		config: processorCfg,
 		logger: set.Logger,
+		next:   nextConsumer,
 	}
 
-	return processorhelper.NewLogsProcessor(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		proc.processLogs,
-		processorhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-	)
+	return proc, nil
 }

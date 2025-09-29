@@ -1,7 +1,7 @@
 package httpprocessor
 
 import (
-	"go.opentelemetry.io/collector/component"
+	"fmt"
 )
 
 // Config defines the configuration for the HTTP processor
@@ -19,7 +19,7 @@ type Config struct {
 // Validate checks if the processor configuration is valid
 func (cfg *Config) Validate() error {
 	if cfg.Endpoint == "" {
-		return component.ErrNilNextConsumer
+		return fmt.Errorf("endpoint cannot be empty")
 	}
 	return nil
 }
